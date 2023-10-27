@@ -19,3 +19,15 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+    
+# kod z oficjalnej dokumentacji Django
+class Person(models.Model):
+    # lista wartości do wyboru w formie krotek
+    SHIRT_SIZES = (
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+    )
+    name = models.CharField(max_length=60)
+    # wskazanie listy poprzez przypisanie do parametru choices
+    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
