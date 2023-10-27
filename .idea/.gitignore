@@ -34,6 +34,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+.vs/
 .vscode/
 venv/
 env/
