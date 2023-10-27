@@ -31,3 +31,26 @@ class Person(models.Model):
     name = models.CharField(max_length=60)
     # wskazanie listy poprzez przypisanie do parametru choices
     shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+
+
+class Stanowisko(models.Model):
+    nazwa = models.CharField(max_length=100, blank=False, null=False)
+    stanowisko = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.nazwa}'
+
+class Osoba(models.Model):
+    PLEC = (
+        ('F', 'Female'),
+        ('M', 'Male'),
+        ('H', 'HelikopterSzturmowy'),
+    )
+    imie = models.CharField(max_length=60, blank=False, null=False)
+    nazwisko = models.CharField(max_length=60, blank=False, null=False)
+    plec = models.CharField(max_length=1, choices=PLEC)
+    stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.imie} {self.nazwisko}'
+
