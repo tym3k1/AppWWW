@@ -41,15 +41,21 @@ class Stanowisko(models.Model):
         return f'{self.nazwa}'
 
 class Osoba(models.Model):
-    PLEC = (
-        ('F', 'Female'),
-        ('M', 'Male'),
-        ('H', 'HelikopterSzturmowy'),
-    )
+    
+    class Plec(models.IntegerChoices):
+        KOBIETA = 1, 'Kobieta'
+        MEZCZYZNA = 2, 'Mężczyzna'
+        INNE = 3, 'Inne'
+
+
     imie = models.CharField(max_length=60, blank=False, null=False)
     nazwisko = models.CharField(max_length=60, blank=False, null=False)
-    plec = models.CharField(max_length=1, choices=PLEC)
+    plec = models.IntegerField(choices=Plec.choices)
     stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
+    data_dodania = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["nazwisko"]
 
     def __str__(self):
         return f'{self.imie} {self.nazwisko}'
