@@ -35,7 +35,7 @@ class Person(models.Model):
 
 class Stanowisko(models.Model):
     nazwa = models.CharField(max_length=100, blank=False, null=False)
-    stanowisko = models.TextField(blank=True, null=True)
+    opis = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.nazwa}'

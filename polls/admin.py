@@ -8,7 +8,7 @@ admin.site.register(Choice)
 class PersonAdmin(admin.ModelAdmin):
     # zmienna list_display przechowuje listę pól, które mają się wyświetlać w widoku listy danego modelu w panelu administracynym
     list_display = ('imie', 'nazwisko', 'plec', 'data_dodania','view_stanowisko_id')
-    filter_list = ('plec')
+    list_filter = ('data_dodania', 'stanowisko')
     
     @admin.display(empty_value="???")
     def view_stanowisko_id(self, obj):
@@ -17,4 +17,9 @@ class PersonAdmin(admin.ModelAdmin):
 admin.site.register(Osoba, PersonAdmin)
 
 admin.site.register(Person)
-admin.site.register(Stanowisko)
+
+class StanowiskoAdmin(admin.ModelAdmin):
+    list_display = ('nazwa', 'opis')
+    list_filter = ('nazwa',)
+
+admin.site.register(Stanowisko, StanowiskoAdmin)
