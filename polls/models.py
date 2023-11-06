@@ -19,7 +19,15 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
-    
+
+class Team(models.Model):
+    name = models.CharField(max_length=60)
+    country = models.CharField(max_length=2)
+
+    def __str__(self):
+        return f"{self.name}"
+
+MONTHS = models.IntegerChoices('Miesiace', 'Styczeń Luty Marzec Kwiecień Maj Czerwiec Lipiec Sierpień Wrzesień Październik Listopad Grudzień')
 # kod z oficjalnej dokumentacji Django
 class Person(models.Model):
     # lista wartości do wyboru w formie krotek
@@ -29,8 +37,12 @@ class Person(models.Model):
         ('L', 'Large'),
     )
     name = models.CharField(max_length=60)
-    # wskazanie listy poprzez przypisanie do parametru choices
-    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES, default=SHIRT_SIZES[0][0])
+    month_added = models.IntegerField(choices=MONTHS.choices, default=MONTHS.choices[0][0])
+    team = models.ForeignKey(Team, null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.name
 
 
 class Stanowisko(models.Model):
@@ -53,6 +65,7 @@ class Osoba(models.Model):
     plec = models.IntegerField(choices=Plec.choices)
     stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
     data_dodania = models.DateTimeField(auto_now_add=True)
+    miesiac_dodania = models.IntegerField(default=datetime.date.today().month)
 
     class Meta:
         ordering = ["nazwisko"]
