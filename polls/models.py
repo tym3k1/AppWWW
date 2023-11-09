@@ -59,13 +59,11 @@ class Osoba(models.Model):
         MEZCZYZNA = 2, 'Mężczyzna'
         INNE = 3, 'Inne'
 
-
     imie = models.CharField(max_length=60, blank=False, null=False)
     nazwisko = models.CharField(max_length=60, blank=False, null=False)
     plec = models.IntegerField(choices=Plec.choices)
     stanowisko = models.ForeignKey(Stanowisko, on_delete=models.CASCADE)
-    data_dodania = models.DateTimeField(auto_now_add=True)
-    miesiac_dodania = models.IntegerField(default=datetime.date.today().month)
+    data_dodania = models.DateTimeField(default=timezone.now())
 
     class Meta:
         ordering = ["nazwisko"]
