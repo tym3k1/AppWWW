@@ -1,22 +1,22 @@
-# plik ankiety/urls.py
-
 from django.urls import path, include
+from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
 urlpatterns = [
-    path('osoba/', views.osoba_list, name='osoba-list'),
-    path('osoba/<int:pk>/', views.RetrieveOsobaView.as_view(), name='retrieve-osoba'),
-    path('osoba/<int:pk>/delete/', views.DestroyOsobaView.as_view(), name='destroy-osoba'),
-    path('osoba-list-filter/', views.osoba_list_filter, name='osoba-list-filter'),
-    path('osoba/<int:pk>/', views.osoba_detail, name='osoba-detail'),
-    path('osoba/', views.CreateOsobaView.as_view(), name='create-osoba'),
-    path('osoba/filter/', views.FilterOsobaView.as_view(), name='filter-osoba'),
-    path('stanowisko', views.stanowisko_list, name='stanowisko-list'),
-    path('stanowisko/<int:pk>/', views.RetrieveStanowiskoView.as_view(), name='retrieve-stanowisko'),
-    path('stanowisko', views.CreateStanowiskoView.as_view(), name='create-stanowisko'),
-    path('stanowisko/<int:pk>/delete/', views.DestroyStanowiskoView.as_view(), name='destroy-stanowisko'),
-    path('stanowisko/<int:pk>/', views.stanowisko_detail, name='stanowisko-detail'),
-    path('stanowisko/create/', views.stanowisko_create, name='stanowisko-create'),
-    path('stanowisko/<int:pk>/delete/', views.stanowisko_delete, name='stanowisko-delete'),
-    path('stanowisko/', views.stanowisko_list, name='stanowisko-list'),
+    #path('osobas/', views.OsobaList.as_view()),
+    #path('osobas/<int:pk>/', views.OsobaDetail.as_view()),
+    #path('', views.index, name='index'),
+    path('osobas/', views.osoba_list),
+    path('osobas/<int:pk>/', views.osoba_detail),
+    path('osobas/update/<int:pk>/', views.osoba_update),
+    path('osobas/delete/<int:pk>/', views.osoba_delete),
+    #path('osobas/add/', views.osoba_add),
+    #path('osobas_filtered/<slug:slug>', views.osoba_list_filtered),
+    path('stanowiskos/<int:pk>/', views.stanowisko_detail),
+    path('stanowiskos/', views.stanowisko_list),
+    path('stanowiskos/add/', views.stanowisko_add),
+    path('stanowisko/<int:pk>/members', views.StanowiskoList.as_view(), name='StanowiskoList'),
+    path('api-auth/', include('rest_framework.urls')),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

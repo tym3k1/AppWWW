@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='osoba',
             name='data_dodania',
-            field=models.DateTimeField(default=datetime.datetime(2023, 11, 8, 12, 33, 55, 920801, tzinfo=datetime.timezone.utc)),
+            field=models.DateTimeField(default=1),
         ),
     ]
